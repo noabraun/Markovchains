@@ -42,18 +42,16 @@ def make_chains(text_string):
     """
 
     chains = {}
-    temp_tup = ()
     words = text_string.split()
-    for i in range(len(words)):
-        if i == len(words) - 2:
-            break
-        else:
-            temp_tup = (words[i], words[i + 1])
-            # if temp_tup in chains:
-            #     chains[temp_tup] = chains[temp_tup] + [words[i + 2]]
-            # else:
-            #     chains[temp_tup] = [words[i + 2]]
-            chains[temp_tup] = chains.get(temp_tup, []) + [words[i + 2]]
+    for i in range(len(words)-2):
+        temp_tup = (words[i], words[i + 1])
+        # if temp_tup in chains:
+        #     chains[temp_tup] = chains[temp_tup] + [words[i + 2]]
+        # else:
+        #     chains[temp_tup] = [words[i + 2]]
+        chains.setdefault(temp_tup, [])
+        chains[temp_tup].append(words[i + 2])
+        #chains[temp_tup] = chains.get(temp_tup, []) + [words[i + 2]]
 
     return chains
 
@@ -63,8 +61,18 @@ def make_text(chains):
     """Return text from chains."""
 
     words = []
+    link_key = choice(chains.keys())
+    words.append(link_key[0])
+    words.append(link_key[1])
+    while True:
+        try:
+            next_word = choice(chains[link_key])
+            last_word = words[-1]
+            words.append(next_word)
 
-    # your code goes here
+            link_key = (last_word, next_word)
+        except KeyError:
+            break
 
     return " ".join(words)
 

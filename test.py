@@ -24,18 +24,16 @@ def make_chains(text_string):
     """
 
     chains = {}
-    temp_tup = ()
     words = text_string.split()
-    for i in range(len(words)):
-        if i == len(words) - 2:
-            break
-        else:
-            temp_tup = (words[i], words[i + 1])
-            # if temp_tup in chains:
-            #     chains[temp_tup] = chains[temp_tup] + [words[i + 2]]
-            # else:
-            #     chains[temp_tup] = [words[i + 2]]
-            chains[temp_tup] = chains.get(temp_tup, []) + [words[i + 2]]
+    for i in range(len(words)-2):
+        temp_tup = (words[i], words[i + 1])
+        # if temp_tup in chains:
+        #     chains[temp_tup] = chains[temp_tup] + [words[i + 2]]
+        # else:
+        #     chains[temp_tup] = [words[i + 2]]
+        chains.setdefault(temp_tup, [])
+        chains[temp_tup].append(words[i + 2])
+        #chains[temp_tup] = chains.get(temp_tup, []) + [words[i + 2]]
 
     return chains
 
