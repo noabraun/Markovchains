@@ -1,3 +1,4 @@
+from random import choice
 def make_chains(text_string):
     """Take input text as string; return dictionary of Markov chains.
 
@@ -39,3 +40,26 @@ def make_chains(text_string):
 
 
 print make_chains('Hello I hackbright am at I hackbright test')
+
+
+def make_text(chains, n_gram):
+    """Return text from chains."""
+    words = []
+
+    link_key = choice(chains.keys())
+    #have random key from our dict
+
+    words = list(link_key)
+
+    while link_key in chains.keys():
+        next_word = choice(chains[link_key])
+        #output is string
+
+        words.append(next_word)
+
+        next_key = list(link_key[1:]) + [next_word]
+        #output is list
+
+        link_key = tuple(next_key)
+
+    return " ".join(words)
