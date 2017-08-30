@@ -68,6 +68,7 @@ def make_text(chains, n_gram):
 
     link_key = choice(chains.keys())
 
+
     while True:
         if link_key[0] != link_key[0].capitalize():
             link_key = choice(chains.keys())
@@ -101,3 +102,5 @@ chains = make_chains(input_text, 2)
 random_text = make_text(chains, 2)
 
 print random_text
+
+len(chains.keys())
